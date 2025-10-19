@@ -18,7 +18,7 @@ void ExibirLogoApp(string input) //Funções com parâmetro
 
 void ExibirOpcoesDoMenu()
 {
-    ExibirLogoApp("Screen Sound");
+    ExibirLogoApp(mensagemDeBoasVindas);
     Console.WriteLine("\nDigite 1 para registrar uma banda");
     Console.WriteLine("Digite 2 para listar todas as banda cadastradas");
     Console.WriteLine("Digite 3 para avaliar uma banda");
@@ -123,7 +123,27 @@ void AvaliarBanda()
 
 void MostrarMediaDaBanda()
 {
-    throw new NotImplementedException();
+    Console.Clear();
+    ExibirTitulo("Media da Banda");
+    bandasRegistradas.Keys.ToList().ForEach(banda => Console.WriteLine(banda.ToString()));
+    Console.Write("\nDigite o nome de uma das bandas para ver a média: ");
+    string nomeDaBanda = Console.ReadLine()!; //! objeto nunca será nulo
+    if (bandasRegistradas.ContainsKey(nomeDaBanda))
+    {
+        double mediaDaBanda = bandasRegistradas[nomeDaBanda].Average();
+        Console.WriteLine($"\nA média da banda {nomeDaBanda} é {mediaDaBanda}!");
+        Thread.Sleep(4000);
+        Console.Clear();
+        ExibirOpcoesDoMenu();
+    }
+    else
+    {
+        Console.WriteLine($"A banda {nomeDaBanda} não foi encontrada.");
+        Console.WriteLine("Pressione qualquer tecla para voltar ao menu principal...");
+        Console.ReadKey();
+        Console.Clear();
+        ExibirOpcoesDoMenu();
+    }
 }
 
 ExibirOpcoesDoMenu();
